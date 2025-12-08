@@ -54,9 +54,7 @@ public class AlertTest extends BaseTest{
         WebDriverWait wait = new WebDriverWait(getWebDriver(), Duration.ofSeconds(6));
         wait.until(ExpectedConditions.alertIsPresent());
 
-        alertsPage.confirmSecondAlert();
-
-
+        alertsPage.confirmAlert();
         }
 
 

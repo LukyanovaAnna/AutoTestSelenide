@@ -1,8 +1,11 @@
 package org.example.test;
 
 import org.example.pages.BasePage;
+import org.example.pages.TextInputPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -20,32 +23,23 @@ public class TextInputTest extends BaseTest {
 
         homePage.redirectToSection("Text Input");
 
-        By changeButton = By.xpath("//button[@id='updatingButton']");
-        By inputMyButton = By.xpath("//input[@id='newButtonName']");
+        textInputPage.clearInputMyButton();
+        textInputPage.typeInputMyButton("TEST");
+        String enteredText = textInputPage.getInputMyButtonValue();
 
-        WebElement input = getWebDriver().findElement(inputMyButton);
-        input.clear();
+        textInputPage.inputClickMyButton();
 
-        input.sendKeys("TEST");
+        Assert.assertEquals(enteredText,textInputPage.getInputMyButtonValue ());
 
-        String enteredText = input.getAttribute("value");
+        textInputPage.clearInputMyButton();
 
-        WebElement button = getWebDriver().findElement(changeButton);
-        button.click();
+        textInputPage.typeInputMyButton("TEST2");
 
+        String enteredText2 = textInputPage.getInputMyButtonValue();
 
-        Assert.assertEquals(enteredText, button.getText());
+        textInputPage.inputClickMyButton();
 
-        input.clear();
-
-        input.sendKeys("TEST2");
-
-        String secondEnteredText = input.getAttribute("value");
-
-        WebElement secondButton = getWebDriver().findElement(changeButton); //нужно ли находить второй раз этот же элемент?
-        button.click();
-
-        Assert.assertEquals(secondEnteredText, button.getText());
+        Assert.assertEquals(enteredText2,textInputPage.getInputMyButtonValue ());
 
 
     }

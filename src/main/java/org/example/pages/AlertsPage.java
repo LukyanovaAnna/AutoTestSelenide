@@ -48,8 +48,4 @@ public class AlertsPage extends BasePage{
             driver.switchTo().alert().dismiss();
         }
     }
-    public void confirmSecondAlert(){
-        driver.switchTo().alert().accept();
-    }
-
 }
