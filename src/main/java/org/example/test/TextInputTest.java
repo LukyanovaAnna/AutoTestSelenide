@@ -23,23 +23,25 @@ public class TextInputTest extends BaseTest {
 
         homePage.redirectToSection("Text Input");
 
-        textInputPage.clearInputMyButton();
-        textInputPage.typeInputMyButton("TEST");
-        String enteredText = textInputPage.getInputMyButtonValue();
+        textInputPage.clearInput();
 
-        textInputPage.inputClickMyButton();
+        textInputPage.typeInput("TEST");
 
-        Assert.assertEquals(enteredText,textInputPage.getInputMyButtonValue ());
+        String enteredText = textInputPage.getInputValue();
 
-        textInputPage.clearInputMyButton();
+        textInputPage.clickChangeButton();
 
-        textInputPage.typeInputMyButton("TEST2");
+        Assert.assertEquals(enteredText,textInputPage.getChangeButtonText());
 
-        String enteredText2 = textInputPage.getInputMyButtonValue();
+        textInputPage.clearInput();
 
-        textInputPage.inputClickMyButton();
+        textInputPage.typeInput("TEST2");
 
-        Assert.assertEquals(enteredText2,textInputPage.getInputMyButtonValue ());
+        String enteredText2 = textInputPage.getInputValue();
+
+        textInputPage.clickChangeButton();
+
+        Assert.assertEquals(enteredText2,textInputPage.getChangeButtonText());
 
 
     }
