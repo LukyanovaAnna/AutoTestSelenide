@@ -1,21 +1,27 @@
 package org.example.pages;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import java.io.File;
+import static com.codeborne.selenide.Selenide.*;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 
 public class FileUploadPage extends BasePage{
 
-    By uploadFileInput = By.xpath("//input[@id='browse']");
+    SelenideElement uploadFileInput = $x("//input[@id='browse']");
 
-    public void uploadFile(String pathToFile) {
-        driver.findElement(uploadFileInput).sendKeys(pathToFile);
+
+    public void uploadFile(File file) { // только один файл
+        uploadFileInput.uploadFile();
+    }
+
+    public void uploadFiles(File... files) { // любое количество файлов
+        uploadFileInput.uploadFile(files);
+    }
+
+    public ElementsCollection getUploadedFilesElements() {
+        return $$x("//div[@class='file-info']/p"); // $$x все найденные элементы по XPath
     }
 
 
-
-    public FileUploadPage(WebDriver driver, Actions actions){
-        super (driver, actions);
-    }
 }
 

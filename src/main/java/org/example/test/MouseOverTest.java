@@ -10,7 +10,7 @@ public class MouseOverTest extends BaseTest{
         @Test
                 public void mouseTest() {
 
-            homePage.redirectToSection("Mouse Over"); //По сути это навигация
+            homePage.redirectToSection("Mouse Over"); //навигация
             // на нужную страницу перед тестом
 
             String titleBefore = mouseOverPage.getClickMeAttribute("title"); //Берём значение атрибута

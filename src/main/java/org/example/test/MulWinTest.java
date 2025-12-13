@@ -1,5 +1,8 @@
 package org.example.test;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WindowType;
 import org.testng.annotations.Test;
 
@@ -7,28 +10,31 @@ import java.util.Set;
 
 public class MulWinTest extends BaseTest{
 
+    WebDriver driver = WebDriverRunner.getWebDriver();
 
 
     @Test
     public void mulWinTest(){
 
-        String playGrHandle = getWebDriver().getWindowHandle();
+        String playGrHandle = driver.getWindowHandle();
 
-        getWebDriver().switchTo().newWindow(WindowType.TAB);
+        Selenide.switchTo().newWindow(WindowType.TAB);
 
-        getWebDriver().get("https://google.com/");
+        Selenide.open("https://google.com/");
 
         // ненадежно getWebDriver().switchTo().window("File Upload");
 
-        String googleHandle = getWebDriver().getWindowHandle(); //возвращает ключ к вкладке
+        String googleHandle = driver.getWindowHandle(); //возвращает ключ к вкладке
 
 
-        Set<String> browserTabs = getWebDriver().getWindowHandles(); //возвращает абсолютно все
+        Set<String> browserTabs = driver.getWindowHandles(); //возвращает абсолютно все
         // ключи к открытым вкладкам по порядку
 
-        getWebDriver().switchTo().window(playGrHandle);
+        Selenide.switchTo().window(playGrHandle);
 
         homePage.redirectToSection("File Upload");
+
+        Selenide.closeWindow();
 
 
     }
