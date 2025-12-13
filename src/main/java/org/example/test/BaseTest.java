@@ -1,17 +1,16 @@
 package org.example.test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import org.example.pages.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 public abstract class BaseTest {
 
@@ -19,17 +18,13 @@ public abstract class BaseTest {
     // который будет содержать все параметры из файла
 
 
-    protected HomePage homePage = new HomePage(getWebDriver(), getActions());
-    protected MouseOverPage mouseOverPage = new MouseOverPage(getWebDriver(), getActions());
-    protected AlertsPage alertsPage = new AlertsPage(getWebDriver(),getActions());
-    protected TextInputPage textInputPage = new TextInputPage(getWebDriver(),getActions());
-    protected FileUploadPage fileUploadPage = new FileUploadPage(getWebDriver(),getActions());
-    protected DynamicTablePage dynamicTablePage = new DynamicTablePage(getWebDriver(),getActions());
+    protected HomePage homePage = new HomePage();
+    protected MouseOverPage mouseOverPage = new MouseOverPage();
+    protected AlertsPage alertsPage = new AlertsPage();
+    protected TextInputPage textInputPage = new TextInputPage();
+    protected FileUploadPage fileUploadPage = new FileUploadPage();
+    protected DynamicTablePage dynamicTablePage = new DynamicTablePage();
     //Создаём объекты Page объектов
-
-    private static WebDriver driver;
-    private static Actions actions; //WebDriver будет один на весь проект
-    //(пока тесты в одном процессе), как и Actions
 
 
     @BeforeClass
@@ -37,36 +32,17 @@ public abstract class BaseTest {
         try {
             setProperties();
         }catch (IOException e){
-            e.printStackTrace();
+            throw new RuntimeException("Не удалось загрузить properties", e);
         }
-        driver.get(runProperties.getProperty("baseUrl")); //То есть каждый тест, который наследует BaseTest,
-        // перед запуском вызывает openBasePage(), а этот метод сам открывает baseUrl
+
+        Configuration.browser = "chrome";
+
+        Selenide.open(runProperties.getProperty("baseUrl"));
     }
 
-
-    public static WebDriver getWebDriver(){ //Это глобальная точка доступа к драйверу
-        // (управляет созданием драйвера, хранением и выдачей),
-        // тк private static WebDriver driver; // метод = “дай мне драйвер”
-        if (driver == null) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
-            return driver; //Без return getWebDriver().findElement(...) не работало бы,
-            // потому что имеено здесь драйвер записывается в переменную
-        } else {
-            return driver;
-        }
-    }
-
-
-
-    public  static Actions getActions(){
-        if (actions == null) {
-            return new Actions(getWebDriver()); //Actions использует driver для выполнения
-            // всех сложных действий: hover, drag&drop, clickAndHold, sendKeys
-        } else {
-            return actions;
-        }
+    public static WebDriver getWebDriver() {
+        return WebDriverRunner.getWebDriver(); //Глобальный доступ к WebDriver
+        // (если вдруг понадобится)
     }
 
 
@@ -78,15 +54,15 @@ public abstract class BaseTest {
         // чтобы удобно к ним обращаться в коде.
     }
 
-    @AfterSuite(alwaysRun = true)
+    @AfterSuite(alwaysRun = true) //браузер закроется даже если тесты упали
     public void closeBrowser(){
-        driver.quit();
+        Selenide.closeWebDriver(); //явное закрытие — best practice
     }
 
-    public void switchToLastOpenTab(){
+    public void switchToLastOpenTab() {
+        WebDriver driver = getWebDriver();
         List<String> handles = driver.getWindowHandles().stream().toList();
-        driver.switchTo().window(handles.get(handles.size()-1));
-
+        driver.switchTo().window(handles.get(handles.size() - 1));
     }
 }
 

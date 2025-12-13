@@ -1,17 +1,11 @@
 package org.example.test;
 
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.time.DayOfWeek;
 import java.time.Duration;
-import java.time.LocalDate;
-
-import static java.lang.Thread.*;
-import static java.lang.Thread.sleep;
 
 public class AlertTest extends BaseTest{
 
@@ -27,8 +21,8 @@ public class AlertTest extends BaseTest{
         alertsPage.setTextToAlert(inputText);
         alertsPage.confirmAlert();
 
-        WebDriverWait wait = new WebDriverWait(getWebDriver(), Duration.ofSeconds(6));
-        wait.until(ExpectedConditions.alertIsPresent());
+        Selenide.sleep(6000);
+        Selenide.Wait().until(ExpectedConditions.alertIsPresent());
 
         String actualText = alertsPage.getTextFromAlert();
 
@@ -47,7 +41,7 @@ public class AlertTest extends BaseTest{
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        } //почему просит Thread.sleep(2000) обернуть в try?
+        }
 
         alertsPage.alertDay();
 

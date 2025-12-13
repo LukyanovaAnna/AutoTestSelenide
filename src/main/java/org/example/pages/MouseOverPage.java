@@ -1,34 +1,34 @@
 package org.example.pages;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import static com.codeborne.selenide.Selenide.$x;
+
 public class MouseOverPage extends BasePage {
 
-    private By clickMeButton = By.xpath("//div/a[text()='Click me']");
-    private By clickMeButtonCounter = By.xpath("//span[@id='clickCount']");
+    private SelenideElement clickMeButton = $x("//div/a[text()='Click me']");
+    private SelenideElement clickMeButtonCounter = $x("//span[@id='clickCount']");
 
     public void hoverClickMeButton() {
-        actions.moveToElement(driver.findElement(clickMeButton)).perform();
+        clickMeButton.hover();
     }
 
 
     public String getClickCount() {
-        return driver.findElement(clickMeButtonCounter).getText();
+        return clickMeButtonCounter.getText();
     }
 
     public void doubleClick(int clickCount) {
         for (int i = 0; i < clickCount; i++) {
-            actions.doubleClick(driver.findElement(clickMeButton)).perform();
+            clickMeButton.doubleClick();
         }
     }
 
     public String getClickMeAttribute(String attributeName) {
-        return driver.findElement(clickMeButton).getAttribute(attributeName);
+        return clickMeButton.getAttribute(attributeName);
     }
 
-    public MouseOverPage(WebDriver driver, Actions actions) {
-        super(driver, actions);
-    }
 }

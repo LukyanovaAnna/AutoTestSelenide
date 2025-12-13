@@ -1,16 +1,11 @@
 package org.example.pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
+import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Selenide.$x;
 
 public class DynamicIdPage extends BasePage{
 
-    @FindBy(xpath = "//button[@class='btn btn-primary']")
-    public WebElement dynamicIdButton;
+    public SelenideElement dynamicIdButton = $x("//button[@class='btn btn-primary']");
 
-    DynamicIdPage(WebDriver driver, Actions actions){
-        super(driver, actions);
-    }
 }

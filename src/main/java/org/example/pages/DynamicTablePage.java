@@ -1,32 +1,27 @@
 package org.example.pages;
 
-import org.example.test.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
-import java.util.List;
+import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class DynamicTablePage extends BasePage {
 
-   private By cpuValue = By.xpath("//p[@class='bg-warning']");
-   private By columHeaders = By.xpath("//p[@class='bg-warning']");
-    private By chromeRow = By.xpath("//span[text()='Chrome']/..");
+   private SelenideElement cpuValue = $x("//p[@class='bg-warning']");
+   private ElementsCollection columHeaders = $$x("//p[@class='bg-warning']");
+    private SelenideElement chromeRow = $x("//span[text()='Chrome']/..");
 
     public String getCpuValue(){
-        return driver.findElement(cpuValue).getText();
+        return cpuValue.getText();
     }
 
-    public List<WebElement> getHeader(){
-        return driver.findElements(columHeaders);
-    }
-
-    public DynamicTablePage(WebDriver driver, Actions actions){
-        super(driver, actions);
+    public ElementsCollection getHeader(){
+        return columHeaders;
     }
 
     public WebElement getCromeRow(){
-        return driver.findElement(chromeRow);
+        return chromeRow;
     }
 }
