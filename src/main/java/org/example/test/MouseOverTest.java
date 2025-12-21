@@ -3,8 +3,6 @@ package org.example.test;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-
 public class MouseOverTest extends BaseTest{
 
         @Test

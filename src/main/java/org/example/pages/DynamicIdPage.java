@@ -2,9 +2,6 @@ package org.example.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.codeborne.selenide.Selenide.$x;
 

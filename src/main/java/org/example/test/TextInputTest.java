@@ -11,10 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.util.List;
-
 public class TextInputTest extends BaseTest {
 
 

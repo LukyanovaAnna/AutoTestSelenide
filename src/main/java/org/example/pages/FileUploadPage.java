@@ -2,7 +2,6 @@ package org.example.pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-
 import java.io.File;
 import static com.codeborne.selenide.Selenide.*;
 

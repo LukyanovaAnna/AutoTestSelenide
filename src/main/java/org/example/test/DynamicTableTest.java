@@ -1,5 +1,4 @@
 package org.example.test;
-
 import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 import org.testng.Assert;
