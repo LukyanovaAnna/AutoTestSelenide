@@ -3,14 +3,10 @@ package org.example.pages;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Data;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import static com.codeborne.selenide.Selenide.$x;
-
-@Data
 
 public class AlertsPage extends BasePage{
 

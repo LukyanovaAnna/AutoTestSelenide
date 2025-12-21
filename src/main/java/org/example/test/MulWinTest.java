@@ -10,11 +10,11 @@ import java.util.Set;
 
 public class MulWinTest extends BaseTest{
 
-    WebDriver driver = WebDriverRunner.getWebDriver();
-
 
     @Test
     public void mulWinTest(){
+
+        WebDriver driver = WebDriverRunner.getWebDriver();
 
         String playGrHandle = driver.getWindowHandle();
 

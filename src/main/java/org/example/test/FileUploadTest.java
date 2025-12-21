@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.File;
 import java.util.List;
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 
 
 public class FileUploadTest  extends BaseTest {

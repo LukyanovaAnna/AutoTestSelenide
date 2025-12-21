@@ -1,8 +1,7 @@
 package org.example.pages;
-
 import io.qameta.allure.Step;
-
 import static com.codeborne.selenide.Selenide.$x;
+
 
 public class HomePage extends BasePage{
 

@@ -1,12 +1,9 @@
 package org.example.test;
-
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.example.listeners.TestListener;
 import org.example.pages.*;
 import org.openqa.selenium.OutputType;
@@ -35,6 +32,8 @@ public abstract class BaseTest {
     protected TextInputPage textInputPage = new TextInputPage();
     protected FileUploadPage fileUploadPage = new FileUploadPage();
     protected DynamicTablePage dynamicTablePage = new DynamicTablePage();
+    protected AjaxPage ajaxPage = new AjaxPage();
+    protected SampleAppPage sampleAppPage = new SampleAppPage();
     //Создаём объекты Page объектов
 
 
@@ -48,8 +47,13 @@ public abstract class BaseTest {
         }
 
         Configuration.browser = "chrome";
+        Configuration.downloadsFolder = "src/main/resources/download";
+        Configuration.baseUrl = runProperties.getProperty("baseUrl");
+        //Configuration.timeout = 20000;
+        // Configuration.headless = true;
 
         Selenide.open(runProperties.getProperty("baseUrl"));
+        WebDriverRunner.getWebDriver().manage().window().maximize();
     }
 
     public static void getScreenshot() { //делает скрины в местах ошибок
@@ -75,16 +79,25 @@ public abstract class BaseTest {
         // чтобы удобно к ним обращаться в коде.
     }
 
-    @AfterSuite(alwaysRun = true) //браузер закроется даже если тесты упали
-    public void closeBrowser(){
-        Selenide.closeWebDriver(); //явное закрытие — best practice
-    }
+    //@AfterSuite(alwaysRun = true) //браузер закроется даже если тесты упали
+    //public void closeBrowser(){
+        //Selenide.closeWebDriver(); //явное закрытие — best practice
+    //} в седениде это не надо
 
     public void switchToLastOpenTab() {
         WebDriver driver = getWebDriver();
         List<String> handles = driver.getWindowHandles().stream().toList();
         driver.switchTo().window(handles.get(handles.size() - 1));
     }
+
+    //public  WebDriver getDriver(){
+
+       // DesiredCapabilities capabilities = new DesiredCapabilities();
+       // capabilities.setBrowserName("chrome");
+       // capabilities.setPlatform(Platform.WINDOWS);
+
+       // RemoteWebDriver driver = new RemoteWebDriver(capabilities, "URL TO GRID");
+    //}
 }
 
 
